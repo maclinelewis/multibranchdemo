@@ -1,6 +1,6 @@
 node {
          stage('addition') {
-              bat """
+              sh '''
                   cd $workspace
                   call activate django_test
                   mkdir $workspace\\histogram_ref
@@ -9,7 +9,7 @@ node {
                   IF ERRORLEVEL 1 GOTO NOT-THERE
                   :NOT-THERE
                   exit 0
-              """
+              '''
 	 
     }
 }
