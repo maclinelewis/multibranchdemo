@@ -3,7 +3,7 @@ node {
 		stage('test'){
 			steps{
 				sh '''
-				   call django_test/Scripts/activate.bat
+				   call activate django_test
 				   pytest test_calc_add.py
 				'''
 			}
