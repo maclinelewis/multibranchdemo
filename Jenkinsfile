@@ -1,15 +1,5 @@
 pipeline {
     agent none
-    environment {
-         REPO_NAME = 'multibranchdemo'
-         IS_JENKINS = 'true'
-    }
-         
-    options {
-         skipDefaultCheckout() 
-         disableConcurrentBuilds()
-         timeout( time: 3, unit: 'HOURS')
-    }
     stages {
          stage('addition') {
               bat """
