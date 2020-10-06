@@ -2,7 +2,10 @@ node {
 	stages {
 		stage('test'){
 			steps{
-				sh 'pytest test_calc_add.py'
+				sh '''
+				   call C:\Users\MACK\django_test\Scripts\activate.bat
+				   pytest test_calc_add.py
+				'''
 			}
 		}
 	}
