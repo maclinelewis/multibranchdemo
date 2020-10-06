@@ -1,6 +1,4 @@
-pipeline {
-    agent none
-    stages {
+node {
          stage('addition') {
               bat """
                   cd $workspace
@@ -12,6 +10,6 @@ pipeline {
                   :NOT-THERE
                   exit 0
               """
-	 }
+	 
     }
 }
