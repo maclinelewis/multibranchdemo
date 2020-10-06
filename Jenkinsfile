@@ -10,14 +10,7 @@ pipeline {
          disableConcurrentBuilds()
          timeout( time: 3, unit: 'HOURS')
     }
-    stages {
-         stage('Clone') {
-              agent {
-                  label 'master'
-              }
-              git url: 'https://github.com/maclinelewis/multibranchdemo.git'
-         }
-         stage('Test') {
+    stage('Test') {
               bat """
                   cd $workspace
                   call activate django_test
@@ -28,6 +21,6 @@ pipeline {
                   :NOT-THERE
                   exit 0
               """
-         }
+         
     }
 }
