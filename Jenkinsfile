@@ -10,7 +10,8 @@ pipeline {
          disableConcurrentBuilds()
          timeout( time: 3, unit: 'HOURS')
     }
-    stage('Test') {
+    stages {
+         stage('addition') {
               bat """
                   cd $workspace
                   call activate django_test
@@ -21,6 +22,6 @@ pipeline {
                   :NOT-THERE
                   exit 0
               """
-         
+	 }
     }
 }
