@@ -1,5 +1,4 @@
-pipeline {
-	agent { docker { image 'python:3.8.6' } }
+node {
 	stages {
 		stage('test'){
 			steps{
