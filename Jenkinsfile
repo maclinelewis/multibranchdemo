@@ -20,7 +20,7 @@ pipeline {
          stage('Test') {
               bat """
                   cd $workspace
-                  call C:\Merlin_Test_Automation\django_test\django_test\Scripts\activate django_test
+                  call activate django_test
                   mkdir $workspace\\histogram_ref
                   mkdir $workspace\\histogram_test
 	          pytest $file
