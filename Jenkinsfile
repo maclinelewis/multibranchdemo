@@ -5,41 +5,6 @@ def send_results(workspace_fallout, type, send_img){
         EXIT /b %ERRORLEVEL%   
     """
 }
-def build_environment(workspace){
-    bat """
-        cd $workspace
-        conda env update -f environment.yml
-        EXIT /b %ERRORLEVEL% 
-    """
-}
-def cmake_build(workspace, type){
-    bat """
-        if EXIST $workspace\\build rmdir /s /q $workspace\\build
-        mkdir $workspace\\build
-        cd $workspace\\build
-        if $type EQU native cmake -DCMAKE_GENERATOR_PLATFORM=x64 ..
-        if $type EQU optimised cmake -DBUILD_OPTIMIZED=1 -DCMAKE_GENERATOR_PLATFORM=x64 ..
-        if $type EQU fixed_point cmake -DBUILD_FIXED=1 -DCMAKE_GENERATOR_PLATFORM=x64 ..
-        if $type EQU opencl_spirv cmake -DBUILD_OPENCL=1 -DSPIRV=1 -DCMAKE_GENERATOR_PLATFORM=x64 ..
-        if $type EQU opencl_nospirv set OPENCL_INCLUDE=C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.2\\include\\
-        if $type EQU opencl_nospirv set OPENCL_LIB=C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.2\\lib\\
-        if $type EQU opencl_nospirv cmake -DBUILD_OPENCL=1 -DSPIRV=0 -DCMAKE_GENERATOR_PLATFORM=x64 ..
-        cmake --build ./ --config Release
-        EXIT /b %ERRORLEVEL% 
-    """
-}
-def cmake_build_api(workspace, type){
-    bat """
-        call activate py36tofi
-        if EXIST $workspace\\build rmdir /s /q $workspace\\build
-        mkdir $workspace\\build
-        cd $workspace\\build
-        if $type EQU opencl cmake .. -G"Visual Studio 15 2017 Win64"
-        if $type EQU native cmake .. -G"Visual Studio 14 2015 Win64"
-        cmake --build . --config Release
-        EXIT /b %ERRORLEVEL% 
-    """
-}
 def run_test(workspace,file){
     bat """
         cd $workspace
@@ -50,15 +15,6 @@ def run_test(workspace,file){
         IF ERRORLEVEL 1 GOTO NOT-THERE
         :NOT-THERE
         exit 0
-    """
-}
-def copy_test_data_file(workspace){
-    bat """
-        rmdir /s /q $workspace\\test_data_files
-        mkdir $workspace\\test_data_files
-        cd $workspace\\test_data_files
-        xcopy /S /E "\\\\10.121.158.129\\TOFI_TestVectors\\test_data_files" $workspace\\test_data_files
-        EXIT /b %ERRORLEVEL%    
     """
 }
 pipeline {
