@@ -43,7 +43,7 @@ def cmake_build_api(workspace, type){
 def run_test(workspace,file){
     bat """
         cd $workspace
-        call activate py36tofi
+        call activate django_test
         mkdir $workspace\\histogram_ref
         mkdir $workspace\\histogram_test
 	    pytest $file
