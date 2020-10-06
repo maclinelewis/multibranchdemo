@@ -233,6 +233,7 @@ pipeline {
                         cleanWs()
                         }
                     }
+	        }
             }
         }
     }
