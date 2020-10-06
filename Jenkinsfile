@@ -30,7 +30,7 @@ def cmake_build(workspace, type){
 }
 def cmake_build_api(workspace, type){
     bat """
-        call activate django_test
+        call activate py36tofi
         if EXIST $workspace\\build rmdir /s /q $workspace\\build
         mkdir $workspace\\build
         cd $workspace\\build
