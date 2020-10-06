@@ -3,7 +3,6 @@ pipeline {
     environment {
          REPO_NAME = 'multibranchdemo'
          IS_JENKINS = 'true'
-         CONDA_PATH = 'C:\Users\MLEWIS3.ANALOG.000\Anaconda3\bin\'
     }
          
     options {
