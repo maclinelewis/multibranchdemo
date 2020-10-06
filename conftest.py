@@ -2,9 +2,9 @@
 import pytest
 import json
 import test_calc_add 
-import test_calc_sub
-import test_calc_mul
-import test_calc_div
+#import test_calc_sub
+#import test_calc_mul
+#import test_calc_div
 import os
 
 
