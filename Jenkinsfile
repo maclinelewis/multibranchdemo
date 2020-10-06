@@ -1,7 +1,7 @@
 def send_results(workspace_fallout, type, send_img){
     bat """
         cd $workspace_fallout
-        curl -i --form "myfile=@result.json" --form "build=%BUILD_NUMBER%" --form "branch_name=%BRANCH_NAME%" --form "type=$type" http://127.0.0.1:8000/send_data
+        curl -i --form "myfile=@result.json" --form "build=%BUILD_NUMBER%" --form "branch_name=%BRANCH_NAME%" --form "type=$type" http://10.121.139.8:8000/send_data
         EXIT /b %ERRORLEVEL%   
     """
 }
