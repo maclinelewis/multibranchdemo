@@ -89,7 +89,7 @@ pipeline {
                         cleanWs()
                         checkout scm
                         dir('docker'){
-                            git credentialsId:'ddf1fc6a-841a-499f-97e2-57ea4f8eca25',
+                            git credentialsId:'ade1cc07-7678-4c15-973f-4829aa189e8b',
                             url:'https://github.com/maclinelewis/multibranchdemo.git'
                         }
                         script{
@@ -158,7 +158,7 @@ pipeline {
                     stage ('Checkout to Linux'){
                         steps {
                             cleanWs()
-                            git credentialsId:'ddf1fc6a-841a-499f-97e2-57ea4f8eca25',
+                            git credentialsId:'ade1cc07-7678-4c15-973f-4829aa189e8b',
                             url:'https://github.com/maclinelewis/multibranchdemo.git'
                             dir('fallout'){
                                 script{
