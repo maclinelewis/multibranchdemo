@@ -20,7 +20,7 @@ def run_test(workspace,file){
 pipeline {
     agent none
     environment {
-        REPO_NAME = 'multibranchdemo'
+        REPO_NAME = 'addition'
         IS_JENKINS = 'true'
 	CONDA_PATH = '/home/tof-dev/anaconda3/bin'
         branch = 'release/TOFI-512-fallout-0.12.0'
