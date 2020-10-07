@@ -1,4 +1,4 @@
-def send_results(workspace_fallout, type, send_img){
+def send_results(workspace_fallout){
     bat """
         cd $workspace_fallout
         curl -i --form "myfile=@result.json" --form "build=%BUILD_NUMBER%" --form "branch_name=%BRANCH_NAME%" --form "type=$type" http://10.121.139.8:8000/send_data
@@ -20,7 +20,7 @@ def run_test(workspace,file){
 pipeline {
     agent none
     environment {
-        REPO_NAME = 'addition'
+        REPO_NAME = 'multibranchdemo'
         IS_JENKINS = 'true'
 	CONDA_PATH = '/home/tof-dev/anaconda3/bin'
         branch = 'release/TOFI-512-fallout-0.12.0'
@@ -32,10 +32,10 @@ pipeline {
         timeout( time: 3, unit: 'HOURS')
     }
     stages {
-        stage ('fallout'){
+        stage ('multibranchdemo'){
             /*failFast true*/ // Commenting to avoid not running Windows due to Linux build failure.
             parallel { // Split up into parallel branches for each target platform               
-            stage('Dragonboard-Linaro'){
+            stage('addition'){
                 agent {
                         label 'master'
                 }
