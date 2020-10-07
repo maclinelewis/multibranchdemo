@@ -8,7 +8,7 @@ def send_results(workspace_fallout, type, send_img){
 def run_test(workspace,file){
     bat """
         cd $workspace
-        call activate django_test
+        call activate py36tofi
         mkdir $workspace\\histogram_ref
         mkdir $workspace\\histogram_test
 	    pytest $file
@@ -20,9 +20,9 @@ def run_test(workspace,file){
 pipeline {
     agent none
     environment {
-        REPO_NAME = 'fallout'
+        REPO_NAME = 'multibranchdemo'
         IS_JENKINS = 'true'
-        CONDA_PATH = '/home/tof-dev/anaconda3/bin'
+	CONDA_PATH = '/home/tof-dev/anaconda3/bin'
         branch = 'release/TOFI-512-fallout-0.12.0'
     }
 
@@ -64,7 +64,7 @@ pipeline {
                             branch_name = "${BRANCH_NAME}"
                         }
 
-                        writeFile(file:'shell_native_linaro.sh',text:'#!/bin/sh\nif [ -d /workspace/examples/raw_to_depth/build ]; then rm -rf /workspace/examples/raw_to_depth/build; fi\ncd /workspace/examples/raw_to_depth\nrm -rf build/\nmkdir -p build/\ncd build/\ncmake ..\nmake\nif [ $? -eq 0 ]\nthen\necho  \'{"outcome": true}\' >result.json\nelse\necho \'{"outcome": false}\' >result.json\nfi\ncurl -i --form "myfile=@result.json" --form "build=$1" --form "branch_name=$2" --form "type=linaro-native-fallout" http://10.68.112.95:8000/send_data')
+                        writeFile(file:'shell_native_linaro.sh',text:'#!/bin/sh\nif [ -d /workspace/examples/raw_to_depth/build ]; then rm -rf /workspace/examples/raw_to_depth/build; fi\ncd /workspace/examples/raw_to_depth\nrm -rf build/\nmkdir -p build/\ncd build/\ncmake ..\nmake\nif [ $? -eq 0 ]\nthen\necho  \'{"outcome": true}\' >result.json\nelse\necho \'{"outcome": false}\' >result.json\nfi\ncurl -i --form "myfile=@result.json" --form "build=$1" --form "branch_name=$2" --form "type=linaro-native-fallout" http://10.121.139.8:8000/send_data')
                         bat 'docker run --rm -v '+path_linaro+'://workspace -w //workspace linaro_container bash shell_native_linaro.sh %build_number% %branch_name%'
                             }
                         }
@@ -78,7 +78,7 @@ pipeline {
                                 build_number = "${BUILD_NUMBER}"
                                 branch_name = "${BRANCH_NAME}"
                             }
-                            writeFile(file:'shell_optimised_linaro.sh',text:'#!/bin/sh\nif [ -d /workspace/examples/raw_to_depth/build ]; then rm -rf /workspace/examples/raw_to_depth/build; fi\ncd /workspace/examples/raw_to_depth\nrm -rf build/\nmkdir -p build/&&cd build/\ncmake -DBUILD_OPTIMIZED=1 ..\nmake\nif [ $? -eq 0 ]\nthen\necho \'{"outcome": true}\' >result.json\nelse\necho \'{"outcome": false}\' >result.json\nfi\ncurl -i --form "myfile=@result.json" --form "build=$1" --form "branch_name=$2" --form "type=linaro-optimised-fallout" http://10.68.112.95:8000/send_data')
+                            writeFile(file:'shell_optimised_linaro.sh',text:'#!/bin/sh\nif [ -d /workspace/examples/raw_to_depth/build ]; then rm -rf /workspace/examples/raw_to_depth/build; fi\ncd /workspace/examples/raw_to_depth\nrm -rf build/\nmkdir -p build/&&cd build/\ncmake -DBUILD_OPTIMIZED=1 ..\nmake\nif [ $? -eq 0 ]\nthen\necho \'{"outcome": true}\' >result.json\nelse\necho \'{"outcome": false}\' >result.json\nfi\ncurl -i --form "myfile=@result.json" --form "build=$1" --form "branch_name=$2" --form "type=linaro-optimised-fallout" http://10.121.139.8:8000/send_data')
                             bat 'docker run --rm -v '+path_linaro+'://workspace -w //workspace linaro_container bash shell_optimised_linaro.sh %build_number% %branch_name%'
                         }
                     }
@@ -92,7 +92,7 @@ pipeline {
                                 build_number = "${BUILD_NUMBER}"
                                 branch_name = "${BRANCH_NAME}"
                             }
-                            writeFile(file:'shell_fixed_linaro.sh',text:'#!/bin/sh\nif [ -d /workspace/examples/raw_to_depth/build ]; then rm -rf /workspace/examples/raw_to_depth/build; fi\ncd /workspace/examples/raw_to_depth\nrm -rf build/\nmkdir -p build/&&cd build/\ncmake -DBUILD_FIXED=1 ..\nmake\nif [ $? -eq 0 ]\nthen\necho \'{"outcome": true}\' >result.json\nelse\necho \'{"outcome": false}\' >result.json\nfi\ncurl -i --form "myfile=@result.json" --form "build=$1" --form "branch_name=$2" --form "type=linaro-fixed-fallout" http://10.68.112.95:8000/send_data')
+                            writeFile(file:'shell_fixed_linaro.sh',text:'#!/bin/sh\nif [ -d /workspace/examples/raw_to_depth/build ]; then rm -rf /workspace/examples/raw_to_depth/build; fi\ncd /workspace/examples/raw_to_depth\nrm -rf build/\nmkdir -p build/&&cd build/\ncmake -DBUILD_FIXED=1 ..\nmake\nif [ $? -eq 0 ]\nthen\necho \'{"outcome": true}\' >result.json\nelse\necho \'{"outcome": false}\' >result.json\nfi\ncurl -i --form "myfile=@result.json" --form "build=$1" --form "branch_name=$2" --form "type=linaro-fixed-fallout" http://10.121.139.8:8000/send_data')
                             bat 'docker run -v '+path_linaro+'://workspace -w //workspace linaro_container bash shell_fixed_linaro.sh %build_number% %branch_name%'
                         }
                     }
@@ -138,7 +138,7 @@ pipeline {
 
                             script{
                                 path_linux = pwd()+"\\fallout\\examples\\raw_to_depth\\"
-                                send_results(path_linux, "linux-native-fallout","sendData")
+                                send_results(path_linux)
                             }
 
                         }
@@ -157,7 +157,7 @@ pipeline {
 
                             script{
                                 path_linux = pwd()+"\\fallout\\examples\\raw_to_depth\\"
-                                send_results(path_linux, "linux-optimised-fallout","sendData")
+                                send_results(path_linux)
                             }
 
                         }
@@ -176,7 +176,7 @@ pipeline {
 
                             script{
                                 path_linux = pwd()+"\\fallout\\examples\\raw_to_depth\\"
-                                send_results(path_linux, "linux-fixedpoint-fallout","sendData")
+                                send_results(path_linux)
                             }
                         }
                     }
