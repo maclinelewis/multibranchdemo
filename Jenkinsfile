@@ -79,7 +79,7 @@ pipeline {
         REPO_NAME = 'multibranchdemo'
         IS_JENKINS = 'true'
         CONDA_PATH = '/home/tof-dev/anaconda3/bin'
-        branch = 'release/TOFI-512-fallout-0.12.0'
+        branch = 'release/calc-512-fallout-0.12.0'
     }
 
     options { 
@@ -101,8 +101,8 @@ pipeline {
                         cleanWs()
                         checkout scm
                         dir('docker'){
-                            git credentialsId:'bb76e0bd-8935-4317-bb1d-bf97a2f7ea7f',
-                            url:'https://bitbucket.analog.com/scm/tofi/docker-images.git'
+                            git credentialsId:'ade1cc07-7678-4c15-973f-4829aa189e8b',
+                            url:'https://github.com/maclinelewis/multibranchdemo.git'
                         }
                         script{
                                 docker.build('linaro_container','./docker/linaro_toolchain')
@@ -170,8 +170,8 @@ pipeline {
                     stage ('Checkout to Linux'){
                         steps {
                             cleanWs()
-                            git credentialsId:'bb76e0bd-8935-4317-bb1d-bf97a2f7ea7f',
-                            url:'https://bitbucket.analog.com/scm/tofi/docker-images.git'
+                            git credentialsId:'ade1cc07-7678-4c15-973f-4829aa189e8b',
+                            url:'https://github.com/maclinelewis/multibranchdemo.git'
                             dir('fallout'){
                                 script{
                                     checkout scm
@@ -254,8 +254,8 @@ pipeline {
                         stage ('Checkout to Windows'){
                             steps {
                                 cleanWs()
-                                git credentialsId:'bb76e0bd-8935-4317-bb1d-bf97a2f7ea7f',
-                                url:'https://bitbucket.analog.com/scm/tofi/docker-images.git'
+                                git credentialsId:'ade1cc07-7678-4c15-973f-4829aa189e8b',
+                                url:'https://github.com/maclinelewis/multibranchdemo.git'
                             
                                 dir('fallout'){
                                         checkout scm
@@ -374,8 +374,8 @@ pipeline {
                         stage ('Checkout to windows'){
                             steps {
 								cleanWs()
-                                git credentialsId:'bb76e0bd-8935-4317-bb1d-bf97a2f7ea7f',
-                                url:'https://bitbucket.analog.com/scm/tofi/docker-images.git'
+                                git credentialsId:'ade1cc07-7678-4c15-973f-4829aa189e8b',
+                                url:'https://github.com/maclinelewis/multibranchdemo.git'
                                 
                                 dir('fallout'){
                                         checkout scm
@@ -723,8 +723,8 @@ pipeline {
                         stage ('Checkout to Windows for API testing'){
                             steps {
                                 cleanWs()
-                                git credentialsId:'bb76e0bd-8935-4317-bb1d-bf97a2f7ea7f',
-                                url:'https://bitbucket.analog.com/scm/tofi/docker-images.git'
+                                git credentialsId:'ade1cc07-7678-4c15-973f-4829aa189e8b',
+                                url:'https://github.com/maclinelewis/multibranchdemo.git'
                                
                                 dir('fallout'){
                                         checkout scm
