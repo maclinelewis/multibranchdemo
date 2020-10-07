@@ -97,14 +97,7 @@ pipeline {
                         }
                     }
                 }
-                post {
-                    aborted{
-                            cleanWs deleteDirs:true 
-                        }
-                    cleanup {
-                        cleanWs()
-                    }
-                }
+                
             }
 			stage ('Linux') {
                 agent {
@@ -180,15 +173,7 @@ pipeline {
                             }
                         }
                     }
-                }
-                post {
-                    aborted{
-                            cleanWs deleteDirs:true 
-                        }
-                    cleanup {
-                        cleanWs()
-                        }
-                    }
+                
 	        }
             }
         }
